@@ -22,4 +22,4 @@ export type ApiMoodsResponseGet = Result<Mood[]>;
 export type ApiMoodResponseGet = Result<Mood>;
 export type ApiMoodsResponsePost = Result<Mood>;
 export type ApiMoodsResponsePut = Result<Mood>;
-export type ApiMoodsResponseDelete = Result<{ success: boolean }>;
+export type ApiMoodsResponseDelete = Result<null>;

@@ -4,7 +4,9 @@ import { sql } from "kysely";
 export async function up(db: Kysely<any>): Promise<void> {
   await db.schema
     .createTable("moods")
-    .addColumn("id", "serial", (col) => col.primaryKey())
+    //.addColumn("id", "serial", (col) => col.primaryKey())
+    // use a non-sequential primary key to avoid leaking information
+    .addColumn("id", "text", (col) => col.primaryKey())
     .addColumn("mood", "text", (col) =>
       col.notNull().check(sql`mood IN ('good', 'ok', 'bad')`)
     )

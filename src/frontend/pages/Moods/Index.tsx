@@ -49,7 +49,7 @@ const App = () => {
     setLoading(false);
   };
 
-  const handleDelete = async (id: number) => {
+  const handleDelete = async (id: string) => {
     if (!confirm("Are you sure you want to delete this mood?")) {
       return;
     }
@@ -62,11 +62,11 @@ const App = () => {
     }
   };
 
-  const viewMood = (id: number) => {
+  const viewMood = (id: string) => {
     window.location.href = `/moods/${id}`;
   };
 
-  const editMood = (id: number) => {
+  const editMood = (id: string) => {
     window.location.href = `/moods/${id}/edit`;
   };
 

@@ -1,6 +1,6 @@
 // Auto-generated API client
 
-import type { ApiMoodsResponseGet, ApiMoodsResponsePost, ApiMoodResponseGet, ApiMoodsResponsePut } from "/Users/adit/simple-node-web-app/src/common/apiTypes.js"
+import type { ApiMoodsResponseGet, ApiMoodsResponsePost, ApiMoodResponseGet, ApiMoodsResponsePut } from "../../../src/common/apiTypes.js"
 
 export async function apiMoodsGet(options:Record<string, any> = {}): Promise<ApiMoodsResponseGet> {
     try {

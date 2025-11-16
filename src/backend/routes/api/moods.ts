@@ -7,16 +7,15 @@ import {
 } from "@/common/apiTypes/moods.js";
 import { failure, success } from "@/common/types.js";
 import { Request, Response } from "express";
+import { createMood, findMoods } from "@/backend/db/mood.js";
 
 export const get = [
   isLoggedIn,
   async (req: Request, res: Response): Promise<ApiMoodsResponseGet> => {
-    const moods = await db
-      .selectFrom("moods")
-      .where("deleted_at", "is", null)
-      .orderBy("created_at", "desc")
-      .selectAll()
-      .execute();
+    const moods = await findMoods({
+      criteria: {},
+      currentUser: null,
+    });
     return success(moods);
   },
 ];
@@ -33,16 +32,15 @@ export const post = [
     }
 
     const { mood, note } = validatedData.data;
-    const newMood = await db
-      .insertInto("moods")
-      .values({
+    const newMood = await createMood({
+      mood: {
         mood,
         note: note || null,
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
-      })
-      .returningAll()
-      .executeTakeFirstOrThrow();
+      },
+      currentUser: null,
+    });
 
     return success(newMood);
   },

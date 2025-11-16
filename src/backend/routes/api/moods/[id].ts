@@ -1,34 +1,29 @@
+import { db } from "@/backend/db/index.js";
+import { deleteMood, findMoodById, updateMood } from "@/backend/db/mood.js";
+import { isLoggedIn } from "@/backend/lib/middleware/auth.js";
 import {
   ApiMoodResponseGet,
+  ApiMoodsResponseDelete,
   ApiMoodsResponsePut,
   UpdateMoodSchema,
-  ApiMoodsResponseDelete,
 } from "@/common/apiTypes/moods.js";
 import { failure, success } from "@/common/types.js";
-import { db } from "@/backend/db/index.js";
-import { isLoggedIn } from "@/backend/lib/middleware/auth.js";
 import { Request, Response } from "express";
 
 export const get = [
   isLoggedIn,
   async (req: Request, res: Response): Promise<ApiMoodResponseGet> => {
-    const id = parseInt(req.params.id);
-    if (isNaN(id)) {
-      return failure("Invalid mood ID");
-    }
+    const id = req.params.id;
 
-    const mood = await db
-      .selectFrom("moods")
-      .where("id", "=", id)
-      .where("deleted_at", "is", null)
-      .selectAll()
-      .executeTakeFirst();
-
+    const mood = await findMoodById({
+      id: id.toString(),
+      currentUser: null,
+    });
     if (!mood) {
       return failure("Mood not found");
+    } else {
+      return success(mood);
     }
-
-    return success(mood);
   },
 ];
 
@@ -37,10 +32,7 @@ export const getType = "ApiMoodResponseGet";
 export const put = [
   isLoggedIn,
   async (req: Request, res: Response): Promise<ApiMoodsResponsePut> => {
-    const id = parseInt(req.params.id);
-    if (isNaN(id)) {
-      return failure("Invalid mood ID");
-    }
+    const id = req.params.id;
 
     const validatedData = UpdateMoodSchema.safeParse(req.body);
     if (!validatedData.success) {
@@ -50,16 +42,11 @@ export const put = [
 
     const updateData = validatedData.data;
 
-    const updatedMood = await db
-      .updateTable("moods")
-      .set({
-        ...updateData,
-        updated_at: new Date().toISOString(),
-      })
-      .where("id", "=", id)
-      .where("deleted_at", "is", null)
-      .returningAll()
-      .executeTakeFirst();
+    const updatedMood = await updateMood({
+      id: id.toString(),
+      updateWith: { ...updateData, updated_at: new Date().toISOString() },
+      currentUser: null,
+    });
 
     if (!updatedMood) {
       return failure("Mood not found");
@@ -74,26 +61,18 @@ export const putType = "ApiMoodsResponsePut";
 export const del = [
   isLoggedIn,
   async (req: Request, res: Response): Promise<ApiMoodsResponseDelete> => {
-    const id = parseInt(req.params.id);
-    if (isNaN(id)) {
-      return failure("Invalid mood ID");
-    }
+    const id = req.params.id;
 
-    const result = await db
-      .updateTable("moods")
-      .set({
-        deleted_at: new Date().toISOString(),
-        updated_at: new Date().toISOString(),
-      })
-      .where("id", "=", id)
-      .where("deleted_at", "is", null)
-      .executeTakeFirst();
+    const result = await deleteMood({
+      id,
+      currentUser: null,
+    });
 
-    if (result.numUpdatedRows === 0n) {
+    if (!result) {
       return failure("Mood not found");
     }
 
-    return success({ success: true });
+    return success(null);
   },
 ];
 
