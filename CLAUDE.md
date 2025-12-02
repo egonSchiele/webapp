@@ -36,10 +36,13 @@ For error handling, instead of throwing exceptions, prefer using the `Result` ty
 - Split up a React component into sub-components when it makes sense.
 - Avoid sharing state. Make as many things private as possible. This will make code much easier to reason about.
 - Have no side effects, if possible. All functions should be deterministic when possible, accepting inputs and returning outputs, and avoiding modifying any shared state in between. 
-
+- Don't write long functions, please break up into sub-functions, so each function has a single purpose.
+- Never use a Map, always use objects.
+- If a function has more than two parameters, use named parameters.
 
 ## Typescript coding guidelines
 - Always type your variables, function parameters, and return types explicitly. Avoid using `any`.
+- Avoid using `as` for type assertions unless absolutely necessary.
 - Use types instead of interfaces.
 
 Bad:
@@ -76,3 +79,15 @@ Similarly, for types:
 - If the type will be used only on the backend, add it to `src/backend/types.ts`.
 - If it will be used only on the frontend, add it to `src/frontend/types.ts`.
 - If it will be used on both, add it to `src/common/types.ts`.
+
+## To run tests
+
+Run
+
+```
+make test
+```
+
+## UI Guidelines
+Please remember to use the components exported from the egon-ui package when building UIs.
+
