@@ -33,7 +33,7 @@
     "express": "^4.21.2",
     "express-file-routing": "github:egonSchiele/express-file-routing",
     "firebase": "^11.2.0",
-    "firebase-admin": "^13.0.2",
+    "firebase-admin": "^13.6.0",
     "kysely": "^0.27.5",
     "nanoid": "^5.1.6",
     "pg": "^8.13.1",
