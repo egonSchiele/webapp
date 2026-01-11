@@ -6,7 +6,7 @@ If you want to do authentication with Firebase (which I highly recommend, it's v
 1. Go to the [Firebase console](https://console.firebase.google.com) and create a new project.
 2. Add auth to your project (left sidebar).
 3. Create a new app in your project: Go to Project Settings (click the gear icon next to your project name), and scroll to the bottom of the page.
-4. Now, under "General", you'll find your Firebase config. The Firebase config contains public information and can be used in the frontend. Add this config to `src/frontend/lib/firebase.ts`. 
+4. Now, under "General", you'll find your Firebase config. The Firebase config contains public information and can be used in the frontend. Add this config to `src/frontend/lib/firebase.ts`.
 4. Next, generate a new service account key. Go to the "Service accounts" tab and click `Generate new private key`. This key is *private* and must *never* be shown to users or checked into a git repo! This will generate a json file. Download this file.
 5. Google will give you these credentials as a JSON file, but I actually prefer to inject secrets as environment variables into my Docker container at runtime. This is more secure than packaging them into your image, and easier than copying the file into the container at runtime. You'll need to set the following variables in your .env or .env.local file:
 
@@ -28,7 +28,7 @@ All of these variables will come from the corresponding keys in the JSON object.
 
 ```javascript
 str = "the private key string from the json file"
-str2 = atob(str)
+str2 = btoa(str)
 console.log(str2)
 ```
 
