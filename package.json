@@ -1,5 +1,5 @@
 {
-  "name": "simple-node-web-app",
+  "name": "webapp",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",

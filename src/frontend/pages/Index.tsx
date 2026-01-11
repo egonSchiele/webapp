@@ -9,7 +9,7 @@ import { Button } from "egon-ui";
 const App = () => {
   return (
     <div className={cls(classes.container)}>
-      <a href="https://github.com/egonSchiele/simple-node-web-app">
+      <a href="https://github.com/egonSchiele/webapp">
         <img
           className=" rounded-2xl hover:scale-105 cursor-pointer"
           src="/images/hello.png"
@@ -21,7 +21,12 @@ const App = () => {
         A template for building web apps in Node, with React and Express.
         <br />
         Learn more on{" "}
-        <Button size="sm" onClick={() => window.open("https://github.com/egonSchiele/simple-node-web-app", "_blank")}>
+        <Button
+          size="sm"
+          onClick={() =>
+            window.open("https://github.com/egonSchiele/webapp", "_blank")
+          }
+        >
           Github
         </Button>
       </p>
