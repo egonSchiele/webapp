@@ -32,7 +32,7 @@ str2 = btoa(str)
 console.log(str2)
 ```
 
-**That's it!** Now visit `http://localhost:3000/signup.html` to sign up as a new user. Then you can visit `https://console.firebase.google.com/project/<your-app-name>/authentication/users` to see your list of users.
+**That's it!** Now visit `http://localhost:3000/signup` to sign up as a new user. Then you can visit `https://console.firebase.google.com/project/<your-app-name>/authentication/users` to see your list of users.
 
 ## How sign up and auth works
 
