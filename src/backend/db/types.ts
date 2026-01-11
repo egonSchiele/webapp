@@ -13,6 +13,7 @@ export interface Database {
   // Table names can be singular or plural, but they should be
   // consistent throughout the application.
   moods: MoodTable;
+  users: UserTable;
 }
 
 // This interface describes the `mood` table to Kysely. Table
@@ -65,9 +66,19 @@ export type Mood = Selectable<MoodTable>;
 export type NewMood = Insertable<MoodTable>;
 export type MoodUpdate = Updateable<MoodTable>;
 
-export type CurrentUser = {
-  userId: string;
-  isAdmin: boolean;
-} | null;
+export interface UserTable {
+  id: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  is_admin: boolean;
+  approved: boolean;
+  created_at: ColumnType<Date, string | undefined, string | undefined>;
+  updated_at: ColumnType<Date, string | undefined, string | undefined>;
+}
+
+export type User = Selectable<UserTable>;
+export type NewUser = Insertable<UserTable>;
+export type UserUpdate = Updateable<UserTable>;
 
 export type KyselyTransaction = Transaction<Database>;

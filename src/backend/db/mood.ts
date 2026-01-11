@@ -1,7 +1,6 @@
 import { nanoid } from "nanoid";
 import { db } from "@/backend/db/index.js";
 import {
-  CurrentUser,
   KyselyTransaction,
   Mood,
   MoodUpdate,
@@ -11,11 +10,9 @@ import {
 // Some example queries
 export async function findMoodById({
   id,
-  currentUser,
   trx,
 }: {
   id: string;
-  currentUser: CurrentUser;
   trx?: KyselyTransaction;
 }): Promise<Mood | undefined> {
   const executor = trx || db;
@@ -28,11 +25,9 @@ export async function findMoodById({
 
 export async function findMoods({
   criteria,
-  currentUser,
   trx,
 }: {
   criteria: Partial<Mood>;
-  currentUser: CurrentUser;
   trx?: KyselyTransaction;
 }): Promise<Mood[]> {
   const executor = trx || db;
@@ -56,12 +51,10 @@ export async function findMoods({
 export async function updateMood({
   id,
   updateWith,
-  currentUser,
   trx,
 }: {
   id: string;
   updateWith: MoodUpdate;
-  currentUser: CurrentUser;
   trx?: KyselyTransaction;
 }): Promise<Mood | undefined> {
   const executor = trx || db;
@@ -75,11 +68,9 @@ export async function updateMood({
 
 export async function createMood({
   mood,
-  currentUser,
   trx,
 }: {
   mood: Omit<NewMood, "id">;
-  currentUser: CurrentUser;
   trx?: KyselyTransaction;
 }): Promise<Mood> {
   const executor = trx || db;
@@ -92,11 +83,9 @@ export async function createMood({
 
 export async function deleteMood({
   id,
-  currentUser,
   trx,
 }: {
   id: string;
-  currentUser: CurrentUser;
   trx?: KyselyTransaction;
 }): Promise<Mood | undefined> {
   const executor = trx || db;

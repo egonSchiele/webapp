@@ -14,7 +14,6 @@ export const get = [
   async (req: Request, res: Response): Promise<ApiMoodsResponseGet> => {
     const moods = await findMoods({
       criteria: {},
-      currentUser: null,
     });
     return success(moods);
   },
@@ -39,7 +38,6 @@ export const post = [
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),
       },
-      currentUser: null,
     });
 
     return success(newMood);

@@ -17,7 +17,6 @@ export const get = [
 
     const mood = await findMoodById({
       id: id.toString(),
-      currentUser: null,
     });
     if (!mood) {
       return failure("Mood not found");
@@ -45,7 +44,6 @@ export const put = [
     const updatedMood = await updateMood({
       id: id.toString(),
       updateWith: { ...updateData, updated_at: new Date().toISOString() },
-      currentUser: null,
     });
 
     if (!updatedMood) {
@@ -65,7 +63,6 @@ export const del = [
 
     const result = await deleteMood({
       id,
-      currentUser: null,
     });
 
     if (!result) {
