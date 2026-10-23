@@ -25,6 +25,8 @@ export type MoodTable = {
   // made optional in inserts and updates.
   id: string;
 
+  user_id: string;
+
   mood: MoodValue;
 
   // If the column is nullable in the database, make its type nullable.

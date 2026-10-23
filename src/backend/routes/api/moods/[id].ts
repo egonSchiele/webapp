@@ -1,5 +1,5 @@
 import { deleteMood, findMoodById, updateMood } from "@/backend/db/mood.js";
-import { isLoggedIn } from "@/backend/lib/middleware/auth.js";
+import { currentUser, isLoggedIn } from "@/backend/lib/middleware/auth.js";
 import {
   ApiMoodResponseGet,
   ApiMoodsResponseDelete,
@@ -11,11 +11,12 @@ import { Request, Response } from "express";
 
 export const get = [
   isLoggedIn,
-  async (req: Request, _res: Response): Promise<ApiMoodResponseGet> => {
+  async (req: Request, res: Response): Promise<ApiMoodResponseGet> => {
     const id = req.params.id;
 
     const mood = await findMoodById({
       id: id.toString(),
+      userId: currentUser(res).id,
     });
     if (!mood) {
       return failure("Mood not found");
@@ -29,7 +30,7 @@ export const getType = "ApiMoodResponseGet";
 
 export const put = [
   isLoggedIn,
-  async (req: Request, _res: Response): Promise<ApiMoodsResponsePut> => {
+  async (req: Request, res: Response): Promise<ApiMoodsResponsePut> => {
     const id = req.params.id;
 
     const validatedData = UpdateMoodSchema.safeParse(req.body);
@@ -42,6 +43,7 @@ export const put = [
 
     const updatedMood = await updateMood({
       id: id.toString(),
+      userId: currentUser(res).id,
       updateWith: { ...updateData, updated_at: new Date().toISOString() },
     });
 
@@ -57,11 +59,12 @@ export const putType = "ApiMoodsResponsePut";
 
 export const del = [
   isLoggedIn,
-  async (req: Request, _res: Response): Promise<ApiMoodsResponseDelete> => {
+  async (req: Request, res: Response): Promise<ApiMoodsResponseDelete> => {
     const id = req.params.id;
 
     const result = await deleteMood({
       id,
+      userId: currentUser(res).id,
     });
 
     if (!result) {

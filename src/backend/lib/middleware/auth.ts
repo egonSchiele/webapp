@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { verifyIdToken } from "@/backend/lib/firebase.js";
 import { DecodedIdToken } from "firebase-admin/auth";
 import { findUserByEmail } from "@/backend/db/user.js";
+import { User } from "@/backend/db/types.js";
 
 export const getUser = async (
   token: string | undefined,
@@ -54,4 +55,9 @@ export const isLoggedIn = async (
   res.locals.user = dbUser.value;
   res.locals.firebaseUser = firebaseUser;
   next();
+};
+
+// The user that isLoggedIn stored. Only call this from a route that runs isLoggedIn first.
+export const currentUser = (res: Response): User => {
+  return res.locals.user;
 };
