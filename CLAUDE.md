@@ -91,3 +91,14 @@ make test
 ## UI Guidelines
 Please remember to use the components exported from the egon-ui package when building UIs.
 
+## Dev docs
+
+Whenever you add a major feature or introduce a new architecture, add a dev doc for it under docs/dev/. In the doc, introduce the feature or architecture, explain why it was added, provide an overview of the architecture and key files, and note down any decisions made. Do not include notes about your own thinking; only include information that will be useful for other people modifying this codebase in the future.
+
+Here's a list of existing dev docs. Whenever you add a dev doc, please add it to the list below along with a one-sentence description of what the doc covers.
+
+Read these before starting any work:
+- docs/dev/contributing/verbal-tics.md - Read this to understand how to communicate with me.
+- docs/dev/contributing/general-writing-tips.md - Read this to understand how to explain things to me.
+- docs/dev/contributing/coding-standards.md - Coding standards to follow
+- docs/dev/contributing/anti-patterns.md - Anti patterns to avoid.
