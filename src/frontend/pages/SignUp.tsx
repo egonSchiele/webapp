@@ -5,9 +5,7 @@ import { auth } from "@/frontend/lib/firebase.js";
 import * as t from "@/frontend/types.js";
 import { prettyFirebaseAuthError } from "@/frontend/util.js";
 import { FirebaseError } from "firebase/app";
-import {
-  createUserWithEmailAndPassword
-} from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { Input } from "egon-ui";
@@ -34,7 +32,7 @@ const App = () => {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
-        password
+        password,
       );
       // Signed in
       const user = userCredential.user;

@@ -1,5 +1,4 @@
-import { db } from "@/backend/db/index.js";
-import { isLoggedIn } from "@/backend/lib/middleware/auth.js";
+import { currentUser, isLoggedIn } from "@/backend/lib/middleware/auth.js";
 import {
   ApiMoodsResponseGet,
   ApiMoodsResponsePost,
@@ -11,9 +10,10 @@ import { createMood, findMoods } from "@/backend/db/mood.js";
 
 export const get = [
   isLoggedIn,
-  async (req: Request, res: Response): Promise<ApiMoodsResponseGet> => {
+  async (_req: Request, res: Response): Promise<ApiMoodsResponseGet> => {
     const moods = await findMoods({
       criteria: {},
+      userId: currentUser(res).id,
     });
     return success(moods);
   },
@@ -33,6 +33,7 @@ export const post = [
     const { mood, note } = validatedData.data;
     const newMood = await createMood({
       mood: {
+        user_id: currentUser(res).id,
         mood,
         note: note || null,
         created_at: new Date().toISOString(),

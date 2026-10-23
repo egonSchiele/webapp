@@ -1,4 +1,3 @@
-import React from "react";
 import { BannerLevel } from "@/frontend/types.js";
 import { cls } from "@/common/util.js";
 

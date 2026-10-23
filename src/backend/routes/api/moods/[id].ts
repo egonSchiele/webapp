@@ -1,6 +1,5 @@
-import { db } from "@/backend/db/index.js";
 import { deleteMood, findMoodById, updateMood } from "@/backend/db/mood.js";
-import { isLoggedIn } from "@/backend/lib/middleware/auth.js";
+import { currentUser, isLoggedIn } from "@/backend/lib/middleware/auth.js";
 import {
   ApiMoodResponseGet,
   ApiMoodsResponseDelete,
@@ -17,6 +16,7 @@ export const get = [
 
     const mood = await findMoodById({
       id: id.toString(),
+      userId: currentUser(res).id,
     });
     if (!mood) {
       return failure("Mood not found");
@@ -43,6 +43,7 @@ export const put = [
 
     const updatedMood = await updateMood({
       id: id.toString(),
+      userId: currentUser(res).id,
       updateWith: { ...updateData, updated_at: new Date().toISOString() },
     });
 
@@ -63,6 +64,7 @@ export const del = [
 
     const result = await deleteMood({
       id,
+      userId: currentUser(res).id,
     });
 
     if (!result) {

@@ -31,7 +31,7 @@ const htmlFiles = findHtmlFiles(pagesDir);
 console.log("Vite found these HTML files:", htmlFiles);
 const input = htmlFiles.reduce((acc, file) => {
   const relativePath = path.relative(pagesDir, file);
-  const name = relativePath.replace(/\.html$/, '').replace(/\//g, '-');
+  const name = relativePath.replace(/\.html$/, "").replace(/\//g, "-");
   acc[name] = file;
   return acc;
 }, {});

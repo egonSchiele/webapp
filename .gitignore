@@ -1,6 +1,7 @@
 dist/*
 node_modules/*
 .*
+!.prettierignore
 config/firebase-adminsdk.json
 firebase-adminsdk.json
 data.db

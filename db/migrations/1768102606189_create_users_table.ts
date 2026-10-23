@@ -11,10 +11,10 @@ export async function up(db: Kysely<any>): Promise<void> {
     .addColumn("is_admin", "boolean", (col) => col.notNull().defaultTo(false))
     .addColumn("approved", "boolean", (col) => col.notNull().defaultTo(false))
     .addColumn("created_at", "timestamp", (col) =>
-      col.defaultTo(sql`now()`).notNull()
+      col.defaultTo(sql`now()`).notNull(),
     )
     .addColumn("updated_at", "timestamp", (col) =>
-      col.defaultTo(sql`now()`).notNull()
+      col.defaultTo(sql`now()`).notNull(),
     )
     .execute();
 }

@@ -13,7 +13,7 @@ const loggerMiddleware = (req: Request, res: Response, next: NextFunction) => {
       res.statusCode < 400
         ? color.green(res.statusCode)
         : color.red(res.statusCode),
-      `${responseTime}ms`
+      `${responseTime}ms`,
     );
   });
 

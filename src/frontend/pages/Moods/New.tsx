@@ -1,6 +1,6 @@
 import "../globals.css";
 import "../ui.css";
-import React, { useState } from "react";
+import { useState } from "react";
 import { createRoot } from "react-dom/client";
 import {
   Button,
@@ -40,9 +40,7 @@ const App = () => {
     <CenteredLayout className="p-lg min-h-screen">
       <div className="flex justify-between items-center mb-8">
         <PageHeading>Add New Mood</PageHeading>
-        <Button onClick={handleCancel}>
-          Back to Moods
-        </Button>
+        <Button onClick={handleCancel}>Back to Moods</Button>
       </div>
 
       {error && (
@@ -56,10 +54,7 @@ const App = () => {
           <CardTitle>How are you feeling?</CardTitle>
         </CardHeader>
         <CardContent>
-          <MoodCreate
-            onSubmit={handleCreate}
-            onCancel={handleCancel}
-          />
+          <MoodCreate onSubmit={handleCreate} onCancel={handleCancel} />
         </CardContent>
       </Card>
     </CenteredLayout>

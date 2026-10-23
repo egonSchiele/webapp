@@ -337,8 +337,11 @@ Please never use this pattern.
 ```ts
 {
         ...(traceFile ? { traceFile } : {}),
+        ...(traceFile && { traceFile }),
 }
 ```
+
+The linter flags both forms.
 
 ### Writing tests where failures are catastrophic
 

@@ -1,13 +1,27 @@
-name: Run tests
+name: CI
 on: push
 
 jobs:
-  test:
+  check:
+    name: ${{ matrix.check }}
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        check: [lint, prettier:check, typecheck, test]
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - name: install
-        run: npm install
-      - name: test
-        run: npm run test
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - name: Install
+        run: pnpm install --frozen-lockfile
+      - name: Run ${{ matrix.check }}
+        run: pnpm run ${{ matrix.check }}

@@ -1,6 +1,5 @@
 import "./globals.css";
 import "./ui.css";
-import React from "react";
 import { createRoot } from "react-dom/client";
 import classes from "./index.module.css";
 import { cls } from "@/common/util.js";

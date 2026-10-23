@@ -20,7 +20,9 @@ function tryEnvFile(envfile: string) {
     console.log("Reading env file at", envfile);
     const env = readFileSync(envfile, "utf-8");
     env.split("\n").forEach((line) => {
-      if (line.trim() === "" || line.startsWith("#")) return;
+      if (line.trim() === "" || line.startsWith("#")) {
+        return;
+      }
       const [key, value] = line.split("=");
       process.env[key] = value;
       console.log("Setting", key, "to", value);
