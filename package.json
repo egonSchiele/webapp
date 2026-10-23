@@ -16,6 +16,7 @@
     "prettier:check": "prettier --check .",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "typecheck": "tsc -p src/backend/tsconfig.json --noEmit && tsc -p src/frontend/tsconfig.json --noEmit",
     "prepare": "git config core.hooksPath scripts/hooks",
     "kysely": "kysely",
     "migrate": "kysely migrate",

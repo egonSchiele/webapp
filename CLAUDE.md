@@ -95,6 +95,7 @@ CI fails if either of these fail. Run them before committing:
 ```
 pnpm run lint
 pnpm run prettier:check
+pnpm run typecheck
 ```
 
 `pnpm run lint:fix` and `pnpm run prettier` fix most problems automatically.

@@ -2,7 +2,7 @@
 
 Rules for writing code in this codebase. Some are enforced by ESLint (`pnpm run lint`, configured in `eslint.config.js`). The rest are conventions we follow by hand. Each rule below says which it is.
 
-CI runs `pnpm run lint`, `pnpm run prettier:check`, and `pnpm run test` on every push, and fails if any of them fail. Run `pnpm run lint:fix` and `pnpm run prettier` to fix most problems automatically.
+CI runs `pnpm run lint`, `pnpm run prettier:check`, `pnpm run typecheck`, and `pnpm run test` on every push, and fails if any of them fail. Run `pnpm run lint:fix` and `pnpm run prettier` to fix most problems automatically.
 
 ---
 

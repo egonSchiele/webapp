@@ -19,7 +19,12 @@ const RESTRICTED_SYNTAX = [
     message: "Log or rethrow the error instead of silently swallowing it.",
   },
   {
-    selector: "SpreadElement > ConditionalExpression",
+    selector: "ObjectExpression > SpreadElement > ConditionalExpression",
+    message: "Do not spread a conditional object. Assign the field directly.",
+  },
+  {
+    selector:
+      "ObjectExpression > SpreadElement > LogicalExpression[operator='&&']",
     message: "Do not spread a conditional object. Assign the field directly.",
   },
   {
