@@ -1,0 +1,4 @@
+# Markdown docs contain deliberately badly formatted code examples.
+*.md
+pnpm-lock.yaml
+src/frontend/generated/

@@ -1,14 +1,14 @@
 import { PAGESDIR } from "@/backend/lib/config.js";
 import { NextFunction, Request, Response, Router } from "express";
 import path from "path";
-import { getUser, isLoggedIn } from "@/backend/lib/middleware/auth.js";
+import { getUser } from "@/backend/lib/middleware/auth.js";
 
 const entrypointsRouter = Router();
 
 export const redirectIfAlreadyLoggedIn = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const user = await getUser(req.cookies.token);
   if (user) {
@@ -55,7 +55,7 @@ const aliases = {
 
 Object.entries(aliases).forEach(([alias, entrypoint]: [string, Alias]) => {
   entrypointsRouter.get(alias, ...(entrypoint.middleware || []), (req, res) =>
-    res.sendFile(path.join(PAGESDIR, entrypoint.file))
+    res.sendFile(path.join(PAGESDIR, entrypoint.file)),
   );
 });
 

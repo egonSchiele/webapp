@@ -1,6 +1,6 @@
 import "../globals.css";
 import "../ui.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 import {
   Button,
@@ -70,6 +70,74 @@ const App = () => {
     window.location.href = `/moods/${id}/edit`;
   };
 
+  const renderMoods = (): ReactNode => {
+    if (loading) {
+      return <Paragraph>Loading moods...</Paragraph>;
+    }
+    if (moods.length === 0) {
+      return <Paragraph>No moods yet. Add your first mood!</Paragraph>;
+    }
+    return (
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead>Mood</TableHead>
+            <TableHead>Note</TableHead>
+            <TableHead>Created</TableHead>
+            <TableHead>Actions</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {moods.map((mood) => (
+            <TableRow key={mood.id}>
+              <TableCell>
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">{getMoodEmoji(mood.mood)}</span>
+                  <span className="capitalize">{mood.mood}</span>
+                </div>
+              </TableCell>
+              <TableCell>
+                {mood.note ? (
+                  <span className="text-gray-700">{mood.note}</span>
+                ) : (
+                  <span className="text-gray-400 italic">No note</span>
+                )}
+              </TableCell>
+              <TableCell>
+                <div className="text-sm">{formatDate(mood.created_at)}</div>
+              </TableCell>
+              <TableCell>
+                <HGroupSM>
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={() => viewMood(mood.id)}
+                  >
+                    View
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={() => editMood(mood.id)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="destructive"
+                    onClick={() => handleDelete(mood.id)}
+                  >
+                    Delete
+                  </Button>
+                </HGroupSM>
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    );
+  };
+
   return (
     <CenteredLayout className="p-lg min-h-screen max-w-[1200px]">
       <VGroupSM>
@@ -94,75 +162,7 @@ const App = () => {
           <CardHeader>
             <CardTitle>Mood History</CardTitle>
           </CardHeader>
-          <CardContent>
-            {loading ? (
-              <Paragraph>Loading moods...</Paragraph>
-            ) : moods.length === 0 ? (
-              <Paragraph>No moods yet. Add your first mood!</Paragraph>
-            ) : (
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Mood</TableHead>
-                    <TableHead>Note</TableHead>
-                    <TableHead>Created</TableHead>
-                    <TableHead>Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {moods.map((mood) => (
-                    <TableRow key={mood.id}>
-                      <TableCell>
-                        <div className="flex items-center gap-2">
-                          <span className="text-2xl">
-                            {getMoodEmoji(mood.mood)}
-                          </span>
-                          <span className="capitalize">{mood.mood}</span>
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        {mood.note ? (
-                          <span className="text-gray-700">{mood.note}</span>
-                        ) : (
-                          <span className="text-gray-400 italic">No note</span>
-                        )}
-                      </TableCell>
-                      <TableCell>
-                        <div className="text-sm">
-                          {formatDate(mood.created_at)}
-                        </div>
-                      </TableCell>
-                      <TableCell>
-                        <HGroupSM>
-                          <Button
-                            size="sm"
-                            variant="secondary"
-                            onClick={() => viewMood(mood.id)}
-                          >
-                            View
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="secondary"
-                            onClick={() => editMood(mood.id)}
-                          >
-                            Edit
-                          </Button>
-                          <Button
-                            size="sm"
-                            variant="destructive"
-                            onClick={() => handleDelete(mood.id)}
-                          >
-                            Delete
-                          </Button>
-                        </HGroupSM>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            )}
-          </CardContent>
+          <CardContent>{renderMoods()}</CardContent>
         </Card>
       </VGroupSM>
     </CenteredLayout>

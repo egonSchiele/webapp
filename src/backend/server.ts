@@ -41,7 +41,7 @@ app.use(
   express.urlencoded({
     limit: "5mb",
     extended: true,
-  })
+  }),
 );
 
 // log each request
@@ -57,12 +57,12 @@ app.use(
     directory: path.join(ROOTDIR, "backend", "routes"),
     apiClientDirectory: path.join(ROOTDIR, "..", "src/frontend/generated"),
     apiClientTypeFile: path.join(ROOTDIR, "..", "src/common/apiTypes.js"),
-  })
+  }),
 );
 
 app.listen(port, () => {
   console.log(
     color.blue(`Example app listening at`),
-    color.yellow(`http://localhost:${port}`)
+    color.yellow(`http://localhost:${port}`),
   );
 });

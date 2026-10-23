@@ -1,4 +1,3 @@
-import { db } from "@/backend/db/index.js";
 import { deleteMood, findMoodById, updateMood } from "@/backend/db/mood.js";
 import { isLoggedIn } from "@/backend/lib/middleware/auth.js";
 import {
@@ -12,7 +11,7 @@ import { Request, Response } from "express";
 
 export const get = [
   isLoggedIn,
-  async (req: Request, res: Response): Promise<ApiMoodResponseGet> => {
+  async (req: Request, _res: Response): Promise<ApiMoodResponseGet> => {
     const id = req.params.id;
 
     const mood = await findMoodById({
@@ -30,7 +29,7 @@ export const getType = "ApiMoodResponseGet";
 
 export const put = [
   isLoggedIn,
-  async (req: Request, res: Response): Promise<ApiMoodsResponsePut> => {
+  async (req: Request, _res: Response): Promise<ApiMoodsResponsePut> => {
     const id = req.params.id;
 
     const validatedData = UpdateMoodSchema.safeParse(req.body);
@@ -58,7 +57,7 @@ export const putType = "ApiMoodsResponsePut";
 
 export const del = [
   isLoggedIn,
-  async (req: Request, res: Response): Promise<ApiMoodsResponseDelete> => {
+  async (req: Request, _res: Response): Promise<ApiMoodsResponseDelete> => {
     const id = req.params.id;
 
     const result = await deleteMood({

@@ -19,10 +19,7 @@ export const MoodForm: React.FC<MoodFormProps> = ({
   isEditing = false,
 }) => {
   const handleSubmit = (values: Record<string, string | number | boolean>) => {
-    onSubmit(
-      values.mood as MoodValue,
-      (values.note as string) || ""
-    );
+    onSubmit(values.mood as MoodValue, (values.note as string) || "");
   };
 
   const moodOptions = [

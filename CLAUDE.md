@@ -88,6 +88,17 @@ Run
 make test
 ```
 
+## To lint and format
+
+CI fails if either of these fail. Run them before committing:
+
+```
+pnpm run lint
+pnpm run prettier:check
+```
+
+`pnpm run lint:fix` and `pnpm run prettier` fix most problems automatically.
+
 ## UI Guidelines
 Please remember to use the components exported from the egon-ui package when building UIs.
 

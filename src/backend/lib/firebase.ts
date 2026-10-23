@@ -44,7 +44,7 @@ export const initializeFirebaseApp = () => {
   if (!serviceAccount) {
     console.log(
       "Could not initialize Firebase app due to missing env vars:",
-      result
+      result,
     );
   } else {
     initializeApp({
@@ -56,7 +56,7 @@ export const initializeFirebaseApp = () => {
 
 // decodedToken includes email, user_id, and other fields
 export const verifyIdToken = async (
-  idToken: string
+  idToken: string,
 ): Promise<Result<DecodedIdToken>> => {
   initializeFirebaseApp();
   try {

@@ -8,14 +8,14 @@ export async function up(db: Kysely<any>): Promise<void> {
     // use a non-sequential primary key to avoid leaking information
     .addColumn("id", "text", (col) => col.primaryKey())
     .addColumn("mood", "text", (col) =>
-      col.notNull().check(sql`mood IN ('good', 'ok', 'bad')`)
+      col.notNull().check(sql`mood IN ('good', 'ok', 'bad')`),
     )
     .addColumn("note", "text")
     .addColumn("created_at", "timestamp", (col) =>
-      col.defaultTo(sql`now()`).notNull()
+      col.defaultTo(sql`now()`).notNull(),
     )
     .addColumn("updated_at", "timestamp", (col) =>
-      col.defaultTo(sql`now()`).notNull()
+      col.defaultTo(sql`now()`).notNull(),
     )
     .addColumn("deleted_at", "timestamp")
     .execute();

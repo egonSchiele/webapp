@@ -1,6 +1,6 @@
 import "../globals.css";
 import "../ui.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 import {
   Button,
@@ -55,7 +55,9 @@ const App = () => {
   };
 
   const handleDelete = async () => {
-    if (!mood) return;
+    if (!mood) {
+      return;
+    }
     if (!confirm("Are you sure you want to delete this mood?")) {
       return;
     }
@@ -69,8 +71,61 @@ const App = () => {
   };
 
   const handleEdit = () => {
-    if (!mood) return;
+    if (!mood) {
+      return;
+    }
     window.location.href = `/moods/${mood.id}/edit`;
+  };
+
+  const renderMood = (): ReactNode => {
+    if (loading) {
+      return <Paragraph>Loading mood...</Paragraph>;
+    }
+    if (!mood) {
+      return <Paragraph>Mood not found</Paragraph>;
+    }
+    return (
+      <div className="space-y-6">
+        <Card>
+          <CardContent>
+            <div className="flex items-start gap-4 mb-6">
+              <div className="text-6xl">{getMoodEmoji(mood.mood)}</div>
+              <div className="flex-1 space-y-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl font-semibold capitalize">
+                    {mood.mood}
+                  </span>
+                </div>
+                <div className="text-sm text-gray-500">
+                  Created: {formatDate(mood.created_at)}
+                </div>
+                {mood.updated_at !== mood.created_at && (
+                  <div className="text-sm text-gray-400">
+                    Updated: {formatDate(mood.updated_at)}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {mood.note && (
+              <div className="mb-6">
+                <h3 className="font-semibold mb-2">Note:</h3>
+                <p className="text-gray-700">{mood.note}</p>
+              </div>
+            )}
+
+            <HGroupSM>
+              <Button variant="secondary" onClick={handleEdit}>
+                Edit
+              </Button>
+              <Button variant="destructive" onClick={handleDelete}>
+                Delete
+              </Button>
+            </HGroupSM>
+          </CardContent>
+        </Card>
+      </div>
+    );
   };
 
   return (
@@ -88,55 +143,7 @@ const App = () => {
         </Banner>
       )}
 
-      {loading ? (
-        <Paragraph>Loading mood...</Paragraph>
-      ) : mood ? (
-        <div className="space-y-6">
-          <Card>
-            <CardContent>
-              <div className="flex items-start gap-4 mb-6">
-                <div className="text-6xl">{getMoodEmoji(mood.mood)}</div>
-                <div className="flex-1 space-y-2">
-                  <div className="flex items-center gap-2">
-                    <span className="text-2xl font-semibold capitalize">
-                      {mood.mood}
-                    </span>
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    Created: {formatDate(mood.created_at)}
-                  </div>
-                  {mood.updated_at !== mood.created_at && (
-                    <div className="text-sm text-gray-400">
-                      Updated: {formatDate(mood.updated_at)}
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              {mood.note && (
-                <div className="mb-6">
-                  <h3 className="font-semibold mb-2">Note:</h3>
-                  <p className="text-gray-700">{mood.note}</p>
-                </div>
-              )}
-
-              <HGroupSM>
-                <Button
-                  variant="secondary"
-                  onClick={handleEdit}
-                >
-                  Edit
-                </Button>
-                <Button variant="destructive" onClick={handleDelete}>
-                  Delete
-                </Button>
-              </HGroupSM>
-            </CardContent>
-          </Card>
-        </div>
-      ) : (
-        <Paragraph>Mood not found</Paragraph>
-      )}
+      {renderMood()}
     </CenteredLayout>
   );
 };

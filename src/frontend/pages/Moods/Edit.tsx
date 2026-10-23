@@ -1,6 +1,6 @@
 import "../globals.css";
 import "../ui.css";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, ReactNode } from "react";
 import { createRoot } from "react-dom/client";
 import {
   Button,
@@ -57,7 +57,9 @@ const App = () => {
   };
 
   const handleUpdate = async (moodValue: MoodValue, note: string) => {
-    if (!mood) return false;
+    if (!mood) {
+      return false;
+    }
 
     const response = await apiMoodsIdPut(mood.id, {
       body: JSON.stringify({ mood: moodValue, note: note || null }),
@@ -79,13 +81,34 @@ const App = () => {
     }
   };
 
+  const renderMood = (): ReactNode => {
+    if (loading) {
+      return <Paragraph>Loading mood...</Paragraph>;
+    }
+    if (!mood) {
+      return <Paragraph>Mood not found</Paragraph>;
+    }
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>Update your mood</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <MoodUpdate
+            mood={mood}
+            onSubmit={handleUpdate}
+            onCancel={handleCancel}
+          />
+        </CardContent>
+      </Card>
+    );
+  };
+
   return (
     <CenteredLayout className="p-lg min-h-screen">
       <div className="flex justify-between items-center mb-8">
         <PageHeading>Edit Mood</PageHeading>
-        <Button onClick={handleCancel}>
-          Cancel
-        </Button>
+        <Button onClick={handleCancel}>Cancel</Button>
       </div>
 
       {error && (
@@ -94,24 +117,7 @@ const App = () => {
         </Banner>
       )}
 
-      {loading ? (
-        <Paragraph>Loading mood...</Paragraph>
-      ) : mood ? (
-        <Card>
-          <CardHeader>
-            <CardTitle>Update your mood</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <MoodUpdate
-              mood={mood}
-              onSubmit={handleUpdate}
-              onCancel={handleCancel}
-            />
-          </CardContent>
-        </Card>
-      ) : (
-        <Paragraph>Mood not found</Paragraph>
-      )}
+      {renderMood()}
     </CenteredLayout>
   );
 };

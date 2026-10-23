@@ -27,7 +27,7 @@ const App = () => {
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
-        password
+        password,
       );
       // Signed in
       const user = userCredential.user;

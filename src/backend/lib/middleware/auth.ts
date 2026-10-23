@@ -4,7 +4,7 @@ import { DecodedIdToken } from "firebase-admin/auth";
 import { findUserByEmail } from "@/backend/db/user.js";
 
 export const getUser = async (
-  token: string | undefined
+  token: string | undefined,
 ): Promise<DecodedIdToken | null> => {
   if (!token) {
     return null;
@@ -19,7 +19,7 @@ export const getUser = async (
 export const isLoggedIn = async (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const firebaseUser = await getUser(req.cookies.token);
   if (!firebaseUser) {

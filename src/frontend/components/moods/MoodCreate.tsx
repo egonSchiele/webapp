@@ -11,11 +11,5 @@ export const MoodCreate: React.FC<MoodCreateProps> = ({
   onSubmit,
   onCancel,
 }) => {
-  return (
-    <MoodForm
-      onSubmit={onSubmit}
-      onCancel={onCancel}
-      isEditing={false}
-    />
-  );
+  return <MoodForm onSubmit={onSubmit} onCancel={onCancel} isEditing={false} />;
 };
